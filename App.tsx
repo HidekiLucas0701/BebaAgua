@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
   return (
@@ -27,7 +27,22 @@ export default function App() {
         </View>
         
       </View>
-      <Text>Corpo do texto</Text>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.mainButton}>
+          <Text style={styles.mainButtonText}> BEBER COPO (200ml)</Text>
+        </TouchableOpacity>
+
+        <View style={styles.configArea}>
+          <TouchableOpacity style={styles.configButton}>
+            <Text style={styles.configButtonText}>Remover</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.configButton}>
+            <Text style={styles.configButtonText}>Reiniciar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <StatusBar style="auto" />
     </View>
   );
@@ -36,7 +51,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F0F9FF',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 20
@@ -124,6 +139,40 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#475569',
     textAlign: 'center'
+  },
+  footer: {
+    width: '100%',
+    paddingHorizontal: 30,
+    marginBottom: 30
+  },
+  mainButton: {
+    backgroundColor: '#0284C7',
+    paddingVertical: 22,
+    borderRadius: 20,
+    alignItems: 'center',
+    shadowColor: '#0284C7',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5
+  },
+  mainButtonText: {
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: '900'
+  },
+  configArea: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20
+  },
+  configButton: {
+    padding: 10,
+  },
+  configButtonText: {
+    color: '#94A3B8',
+    fontSize: 14,
+    fontWeight: 'bold'
   }
-
+  
 });
