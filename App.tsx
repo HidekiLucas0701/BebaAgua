@@ -13,8 +13,19 @@ export default function App() {
         <View style={styles.outerCircleWrapper}>
           <View style={styles.outerCircle}>
             <View style={styles.waterLevel} />
+
+            <Text style={styles.numberText}>5</Text>
+            <Text style={styles.labelText}>COPOS</Text>
           </View>
         </View>
+        <View style={styles.feedbackContainer}>
+          <Text style={styles.statusText}>Faltam 0 copos para a meta.</Text>
+
+          <View style={styles.progressBarBackground}>
+            <View style={styles.progressBar}/>
+          </View>
+        </View>
+        
       </View>
       <Text>Corpo do texto</Text>
       <StatusBar style="auto" />
@@ -79,5 +90,40 @@ const styles = StyleSheet.create({
     backgroundColor: '#0EA5E9',
     opacity: 0.3
   },
+  numberText: {
+    fontSize: 72,
+    fontWeight: '900',
+    color: '#0284C7'
+  },
+  labelText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#0284C7'
+  },
+  progressBarBackground: {
+    width: '100%',
+    height: 12,
+    backgroundColor: '#E0F2FE',
+    borderRadius: 6,
+    marginTop: 15,
+    overflow: 'hidden'
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: '#0284C7',
+    borderRadius: 6,
+    width: '70%'
+  },
+  feedbackContainer: {
+    marginTop: 40,
+    alignItems: 'center',
+    width: '80%'
+  },
+  statusText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#475569',
+    textAlign: 'center'
+  }
 
 });
