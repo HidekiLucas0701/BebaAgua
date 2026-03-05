@@ -10,8 +10,10 @@ export default function App() {
       </View>
 
       <View style={styles.content}>
-        <View style={styles.outerCircle}>
-          <View style={styles.waterLevel} />
+        <View style={styles.outerCircleWrapper}>
+          <View style={styles.outerCircle}>
+            <View style={styles.waterLevel} />
+          </View>
         </View>
       </View>
       <Text>Corpo do texto</Text>
@@ -57,11 +59,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    elevation: 100,
+  },
+  outerCircleWrapper: {
+    elevation: 10,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 5},
     shadowOpacity: 0.1,
     shadowRadius: 10,
+    backgroundColor: '#FFF',
+    borderRadius: 110,
   },
   waterLevel: {
     position: 'absolute',
@@ -72,5 +78,6 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#0EA5E9',
     opacity: 0.3
-  }
+  },
+
 });
