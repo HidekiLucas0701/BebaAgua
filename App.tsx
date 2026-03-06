@@ -1,7 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {useState} from 'react';
+
+const DAILY_GOAL: number = 8;
 
 export default function App() {
+
+  const [cups,setCups] = useState<number>(0);
+  const percentage: number = (cups/DAILY_GOAL) * 100;
+
+  const removeCup = () => {
+    if(cups > 0) {
+      setCups(cups - 1);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -12,32 +25,39 @@ export default function App() {
       <View style={styles.content}>
         <View style={styles.outerCircleWrapper}>
           <View style={styles.outerCircle}>
-            <View style={styles.waterLevel} />
+            <View style={[styles.waterLevel, {height: `${percentage}%`}]} />
 
-            <Text style={styles.numberText}>5</Text>
+            <Text style={styles.numberText}>{cups}</Text>
             <Text style={styles.labelText}>COPOS</Text>
           </View>
         </View>
         <View style={styles.feedbackContainer}>
-          <Text style={styles.statusText}>Faltam 0 copos para a meta.</Text>
+          <Text style={[
+            styles.statusText,
+            cups >= DAILY_GOAL && {color: '#16A34A'}
+          ]}>{
+            cups >= DAILY_GOAL 
+            ? 'Parabéns! Você atingiu sua meta diária de hidratação!'
+            : `Faltam ${DAILY_GOAL - cups} copos para a meta.`
+          }</Text>
 
           <View style={styles.progressBarBackground}>
-            <View style={styles.progressBar}/>
+            <View style={[styles.progressBar, {width: `${percentage}%`}]}/>
           </View>
         </View>
         
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.mainButton}>
-          <Text style={styles.mainButtonText}> BEBER COPO (200ml)</Text>
+        <TouchableOpacity style={styles.mainButton} onPress={() => setCups(cups + 1)}>
+          <Text style={styles.mainButtonText}> BEBER 1 COPO (200ml)</Text>
         </TouchableOpacity>
 
         <View style={styles.configArea}>
-          <TouchableOpacity style={styles.configButton}>
+          <TouchableOpacity style={styles.configButton} onPress={removeCup}>
             <Text style={styles.configButtonText}>Remover</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.configButton}>
+          <TouchableOpacity style={styles.configButton} onPress={() => setCups(0)}>
             <Text style={styles.configButtonText}>Reiniciar</Text>
           </TouchableOpacity>
         </View>
@@ -101,7 +121,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
-    height: 60,
     backgroundColor: '#0EA5E9',
     opacity: 0.3
   },
@@ -126,8 +145,7 @@ const styles = StyleSheet.create({
   progressBar: {
     height: '100%',
     backgroundColor: '#0284C7',
-    borderRadius: 6,
-    width: '70%'
+    borderRadius: 6
   },
   feedbackContainer: {
     marginTop: 40,
@@ -174,5 +192,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold'
   }
-  
+
 });
