@@ -2,12 +2,21 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {useState} from 'react';
 
-const DAILY_GOAL: number = 8;
-
 export default function App() {
 
   const [cups,setCups] = useState<number>(0);
-  const percentage: number = (cups/DAILY_GOAL) * 100;
+  const [dailyGoal, setDailyGoal] = useState<number>(8);
+  const percentage: number = (cups/dailyGoal) * 100;
+
+  const increaseDailyGoal = () => {
+    setDailyGoal(prev => prev + 1);
+  }
+
+  const decreaseDailyGoal = () => {
+    if(dailyGoal > 0){
+      setDailyGoal(prev => prev -1);
+    }
+  }
 
   const removeCup = () => {
     if(cups > 0) {
@@ -22,6 +31,20 @@ export default function App() {
         <Text style={styles.appSubtitle}> HIDRATAÇÃO DIÁRIA</Text>
       </View>
 
+      <View style={styles.dailyGoalButtonsArea}>
+
+        <TouchableOpacity style={styles.dailyGoalButton} onPress={decreaseDailyGoal}>
+            <Text style={styles.mainButtonText}>-</Text>
+          </TouchableOpacity>
+
+        <Text style={styles.appSubtitle}>META DIÁRIA: {dailyGoal}</Text>
+  
+          <TouchableOpacity style={styles.dailyGoalButton} onPress={increaseDailyGoal}>
+            <Text style={styles.mainButtonText}>+</Text>
+          </TouchableOpacity>
+
+      </View>
+
       <View style={styles.content}>
         <View style={styles.outerCircleWrapper}>
           <View style={styles.outerCircle}>
@@ -34,11 +57,11 @@ export default function App() {
         <View style={styles.feedbackContainer}>
           <Text style={[
             styles.statusText,
-            cups >= DAILY_GOAL && {color: '#16A34A'}
+            cups >= dailyGoal && {color: '#16A34A'}
           ]}>{
-            cups >= DAILY_GOAL 
+            cups >= dailyGoal 
             ? 'Parabéns! Você atingiu sua meta diária de hidratação!'
-            : `Faltam ${DAILY_GOAL - cups} copos para a meta.`
+            : `Faltam ${dailyGoal - cups} copos para a meta.`
           }</Text>
 
           <View style={styles.progressBarBackground}>
@@ -191,6 +214,23 @@ const styles = StyleSheet.create({
     color: '#94A3B8',
     fontSize: 14,
     fontWeight: 'bold'
+  },
+  dailyGoalButtonsArea: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  dailyGoalButton:{
+    backgroundColor: '#0284C7',
+    width:50,
+    paddingVertical: 22,
+    borderRadius: 20,
+    alignItems: 'center',
+    shadowColor: '#0284C7',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5
   }
 
 });
